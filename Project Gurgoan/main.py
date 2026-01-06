@@ -74,6 +74,7 @@ tree_preds = tree_reg.predict(housing_prepared)
 forest_preds = forest_reg.predict(housing_prepared)
 
 # RMSE (VERSION-SAFE)
+#=============================
 
 lin_rmse = sqrt(mean_squared_error(housing_labels, lin_preds))
 tree_rmse = sqrt(mean_squared_error(housing_labels, tree_preds))
