@@ -27,3 +27,23 @@ housing_labels = housing["median_house_value"].copy()
 housing = housing.drop("median_house_value", axis=1)
 
 print(housing, housing_labels)
+
+num_attribs = housing.drop("ocean_proximity", axis=1).columns.tolist()
+cat_attribs =["ocean_proximity"]
+
+num_pipeline = Pipeline([
+("imputer", SimpleImputer(strategy="median")),
+("scaler", StandardScaler()),
+])
+
+cat_pipeline = Pipeline([
+("onehot", OneHotEncoder(handle_unknown="ignore"))
+])
+
+full_pipeline = ColumnTransformer([
+("num", num_pipeline, num_attribs),
+("cat", cat_pipeline, cat_attribs),
+])
+
+housing_prepared = full_pipeline.fit_transform(housing)
+print(housing_prepared.shape)
